@@ -1,0 +1,67 @@
+{% extends 'magasin/base.html' %}
+{% block title %} Commande {% endblock %}
+{% block styles %}
+<style>
+    body{
+        margin:3%;
+        padding:3%;
+      } 
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    
+    #commande {
+        margin-top: 50px;
+    }
+    
+    #commande > .row > div {
+        margin-bottom: 30px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0px 0px 10px #ccc;
+        transition: all 0.3s ease-in-out;
+        cursor: pointer;
+    }
+    
+    #commande > .row > div:hover {
+        box-shadow: 0px 0px 15px #ccc;
+        transform: translateY(-5px);
+    }
+    
+    #commande > .row > div > div > p:first-child {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    
+    #commande > .row > div > div > p:not(:first-child) {
+        margin-bottom: 5px;
+    }
+</style>
+
+{% endblock %}
+{% block content %}
+<!-- body -->
+<div class="container-fluid mt-3">
+    <div class="row">
+        <!-- all For -->
+        <p>cc</p>
+        <div id='commande' class="col-lg-9 mx-auto">
+            <div class="row mx-auto">
+                {% for commande in commandes %}
+                <div id={{commande.id}} style="width: 18rem;">
+                    <div>
+                        <p><b>{{commande.dateCde}}</b></p>
+                        <p>{{commande.totalCde}}</p>
+                        <p>{{commande.produits}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

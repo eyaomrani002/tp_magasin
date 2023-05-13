@@ -1,0 +1,29 @@
+{% extends 'magasin/base.html' %}
+{% block title %} Catalogue de produits {% endblock title %}
+{% block content %}
+<!-- body -->
+<style>
+    body{
+        margin:3%;
+        padding:3%;
+      } 
+</style>
+<div class="container-fluid mt-3">
+<div class="row">
+<!-- all products -->
+<div id='produits' class="col-lg-9 mx-auto">
+<div class="row mx-auto">
+{% for produit in produits %}
+<div id={{produit.id}} style="width: 18rem;">
+<img src="/media/{{produit.img}}">
+<div >
+<p >{{produit.libellé}}</p>
+<p ><b>{{produit.description}}</b></p>
+</div>
+</div>
+{% endfor %}
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'magasin/base.html' %}
+
+{% block content %}
+ 
+  
+  <p>Your search for "{{ query }}" returned  results:</p>
+  <ul>
+    {% for produit in produits %}
+      <li><a href="{% url 'product_detail' produit.id %}">{{ produit.type }}</a></li>
+  </ul>
+{% endblock %}

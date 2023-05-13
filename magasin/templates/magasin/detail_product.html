@@ -1,0 +1,12 @@
+{% extends 'magasin/base.html' %}
+
+{% block content %}
+<style>
+  body{
+      margin:3%;
+      padding:3%;
+    } 
+</style>
+  <h1>{{ produit.libellé }}</h1>
+  <img src="{{ produit.img.url }}" alt="{{ produit.libellé }}">
+{% endblock %}

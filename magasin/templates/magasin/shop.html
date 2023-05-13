@@ -1,0 +1,133 @@
+{% extends 'magasin/base.html' %}
+{% block title %} Catalogue de produits {% endblock title %}
+{% block content %}
+<!-- body -->
+<style>
+  .a_1 {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 10px;
+    background-color: #ffcc00;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .a_1:hover {
+    background-color: #155263;
+  }
+  .a_2 {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 10px;
+    background-color: #155263;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .a_2:hover {
+    background-color: #ffcc00;
+  }
+
+* {
+    box-sizing: border-box;
+    margin: 2px;
+    
+}
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #fafafa;
+}
+
+.container {
+    max-width: 100rem;
+    margin: 0 auto;
+    padding: 0 2rem 2rem;
+}
+
+@-webkit-keyframes pulse {
+    0% {
+        @include transform(scale(0.9));
+    }
+    70% {
+        @include transform(scale(1));
+        box-shadow: 0 0 0 50px rgba(#5a99d4, 0);
+    }
+    100% {
+        @include transform(scale(0.9));
+        box-shadow: 0 0 0 0 rgba(#5a99d4, 0);
+    }
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    /* Compensate for excess margin on outer gallery flex items */
+    margin: -1rem -1rem;
+}
+
+.gallery-item {
+    /* Minimum width of 24rem and grow to fit available space */
+    flex: 1 0 24rem;
+    /* Margin value should be half of grid-gap value as margins on flex items don't collapse */
+    margin: 1rem;
+    box-shadow: 0.3rem 0.4rem 0.4rem rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+}
+
+.gallery-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 400ms ease-out;
+}
+
+.gallery-image:hover {
+    transform: scale(1.15);
+}
+
+@supports (display: grid) {
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+        grid-gap: 2rem;
+    }
+    .gallery,
+    .gallery-item {
+        margin: 0;
+    }
+}
+</style>
+<div class="container-fluid mt-3">
+<div class="row">
+<!-- all products -->
+<div id='products' class="col-lg-9 mx-auto">
+<div class="row mx-auto">
+  {% for produit in produits %}
+  <div id="{{produit.id}}" style="width: 18rem;">
+      <img src="/media/{{produit.img}}">
+      <div>
+          <p>{{produit.libellé}}</p>
+          <p><b>{{produit.description}}</b></p>
+      </div>
+      {% if user.is_authenticated and not user.is_staff %}
+            <a href="#" class="a_2"onclick="return confirm('Produit a était ajouter au panier ?')">Panierr</a>
+            {% endif %}
+  </div>
+{% endfor %}
+
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

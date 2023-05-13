@@ -1,0 +1,126 @@
+{% extends 'magasin/base.html' %}
+{% load static %}
+{% block styles %}
+
+<style>
+
+        body{
+            margin:3%;
+            padding:3%;
+          } 
+    
+    .post-form {
+        max-width: 500px;
+        margin: auto;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        margin-top: 10px;
+    }
+
+    .post-form {
+        max-width: 500px;
+        margin: auto;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        margin-top: 10px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    textarea {
+        border: 1px solid #343232;
+        padding: 5px;
+        font-size: 16px;
+        border-radius: 5px;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    input[type="submit"] {
+        background-color: #007bff;
+        color: #000000;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0069d9;
+    }
+        /* Style for the container */
+        .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .table-container {
+        overflow: scroll;
+        border: #000000 1px solid;
+        padding: 10px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    td {
+        border: #dddddd 1px solid;
+        text-align: center;
+        padding: 10px;
+    }
+
+    img {
+        display: block;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        margin-top: 10px;
+        font-weight: bold;
+    }
+
+    p {
+        margin-top: 5px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<div class="container pagemajProduit">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h2 style="color: black;">Ajout Fournisseur</h2>
+    </div>
+    <div class="col-md-6 mx-auto">
+      <form method='POST' class="post-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="text-center mt-3">
+          <button type="submit" class="btn btn-outline-secondary">Ajouter</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

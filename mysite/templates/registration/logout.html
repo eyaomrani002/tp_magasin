@@ -1,0 +1,72 @@
+{% extends "magasin/base.html" %}
+
+{% block content %}
+
+<style>
+  /* Centrer la carte verticalement et horizontalement */
+  .card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  /* Modifier la couleur de fond de la carte */
+  .card-body {
+    background-color: #fff;
+  }
+  
+  /* Modifier la couleur du titre de la carte */
+  .card-title {
+    color: #155263;
+    font-size: 32px;
+    font-family: cursive, sans-serif;
+    margin-bottom: 30px;
+    transition: color 0.3s ease, font-size 0.3s ease; /* Ajouter des transitions sur la couleur et la taille de la police */
+  }
+  
+  /* Modifier la couleur du texte de la carte */
+  .card-text {
+    color: #555;
+    font-size: 16px;
+    font-family: sans-serif;
+    margin-bottom: 20px;
+  }
+  
+  /* Modifier le style du bouton de la carte */
+  .btn-primary {
+    padding: 10px 20px;
+    background-color: #ffcc00;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Changer la couleur de fond du bouton de la carte au survol de la souris */
+  .btn-primary:hover {
+    background-color: #155263;
+  }
+  
+  /* Ajouter un effet de transition sur le survol du bouton de la carte */
+  .btn-primary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+</style>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title">Vous êtes déconnecté.</h2>
+            <p class="card-text">Veuillez vous connecter pour accéder à votre compte.</p>
+            <a href="{% url 'login' %}" class="btn btn-primary">Se connecter</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

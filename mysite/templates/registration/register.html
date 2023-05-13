@@ -1,0 +1,88 @@
+{% extends "magasin/base.html" %}
+
+{% block content %}
+<style>
+  body{
+    padding:10%;
+  }
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #155263;
+    text-align: center;
+  }
+  .form {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 4px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  table {
+    margin-bottom: 1rem;
+  }
+  table td {
+    padding: 0.5rem;
+    font-size: 1.2rem;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    border: none;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  button[type="submit"] {
+    display: block;
+    margin: 1rem auto 0;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: none;
+    background-color: #ffcc00;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  button[type="submit"]:hover {
+    background-color: #155263;
+  }
+  small a {
+    color: #155263;
+    text-decoration: underline;
+  }
+</style>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h2>S'inscrire</h2>
+      <form method="post" class="form">
+        {% csrf_token %}
+        <table>
+          {% for field in form %}
+          <tr>
+            <td>{{ field.label_tag }}</td>
+            <td>{{ field }}</td>
+            {% for error in field.errors %}
+              <td class="alert alert-danger">{{ error }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </table>
+        <button type="submit">S'inscrire</button>
+      </form>
+      <div class="mt-3">
+        <small>
+          Déjà inscrit.e?
+          <a href="{% url 'login' %}">Se connecter</a>
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

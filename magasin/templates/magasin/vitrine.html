@@ -1,0 +1,153 @@
+{% extends 'magasin/base.html' %}
+
+{% block content %}
+<style>
+  .a_1 {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 10px;
+    background-color: #ffcc00;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .a_1:hover {
+    background-color: #155263;
+  }
+  .a_2 {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 10px;
+    background-color: #155263;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .a_2:hover {
+    background-color: #ffcc00;
+  }
+  @import url("https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@400;500;600;700;800&display=swap");
+@import "compass/css3";
+:root {
+    /* Base font size */
+    font-size: 10px;
+    --bs-info-rgb: 13, 202, 240;
+}
+* {
+    box-sizing: border-box;
+    margin: 2px;
+    
+}
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #fafafa;
+}
+
+.container {
+    max-width: 100rem;
+    margin: 0 auto;
+    padding: 0 2rem 2rem;
+}
+
+@-webkit-keyframes pulse {
+    0% {
+        @include transform(scale(0.9));
+    }
+    70% {
+        @include transform(scale(1));
+        box-shadow: 0 0 0 50px rgba(#5a99d4, 0);
+    }
+    100% {
+        @include transform(scale(0.9));
+        box-shadow: 0 0 0 0 rgba(#5a99d4, 0);
+    }
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    /* Compensate for excess margin on outer gallery flex items */
+    margin: -1rem -1rem;
+}
+
+.gallery-item {
+    /* Minimum width of 24rem and grow to fit available space */
+    flex: 1 0 24rem;
+    /* Margin value should be half of grid-gap value as margins on flex items don't collapse */
+    margin: 1rem;
+    box-shadow: 0.3rem 0.4rem 0.4rem rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+}
+
+.gallery-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 400ms ease-out;
+}
+
+.gallery-image:hover {
+    transform: scale(1.15);
+}
+
+@supports (display: grid) {
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+        grid-gap: 2rem;
+    }
+    .gallery,
+    .gallery-item {
+        margin: 0;
+    }
+}
+</style>
+<div  class="container" id="section_1">
+  <div class="gallery">
+    <div  class="gallery-item">
+      <table>
+        {% for article in list %}
+          {% if forloop.counter0|divisibleby:4 %}
+            <tr>
+          {% endif %}
+          <td>
+            <img  class="gallery-image"  src="/media/{{ article.img }}" height="200px" width="200px" alt="">
+            <figcaption>{{ article.libelle }}</figcaption>
+            <p>{{ article.img }}</p>
+            <p>{{ article.prix }} DT.</p>
+
+            {% if user.is_authenticated and not user.is_staff %}
+            <a href="#" class="a_2"onclick="return confirm('Produit a était ajouter au panier ?')">Panierr</a>
+            {% endif %}
+            {% if user.is_authenticated and user.is_superuser %}
+            <a href="{% url 'modifier_produit' article.id %}" class="a_1">Modifier</a>
+            {% endif %}
+
+            {% if user.is_authenticated and user.is_superuser %}
+            <a href="{% url 'supprimer_produit' article.id %}" class="a_2"onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">Supprimer</a>
+            {% endif %}
+          </td>
+          {% if forloop.counter|divisibleby:4 %}
+            </tr>
+          {% endif %}
+        {% endfor %}
+        {% if not forloop.counter|divisibleby:4 %}
+          </tr>
+        {% endif %}
+        
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

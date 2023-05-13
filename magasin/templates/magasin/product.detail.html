@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>{{ produit.libellé }}</h1>
+    <p>{{ produit.description }}</p>
+    <p>Prix: {{ produit.prix }}</p>
+    <p>Catégorie: {{ produit.Categorie }}</p>
+    <p>Type: {{ produit.get_type_display }}</p>
+
+    <form method="post" action="{% url 'monapp:add_to_cart' produit.id %}">
+        {% csrf_token %}
+        <button type="submit">{% if produit in cart.produits.all %}Supprimer du panier{% else %}Ajouter au panier{% endif %}</button>
+    </form>
+{% endblock %}

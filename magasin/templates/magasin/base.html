@@ -1,0 +1,229 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<title>
+{% block title %} {% endblock %}
+</title>
+<link rel='stylesheet' type='text/css' media='screen' href="{% static 'css/base.css'%}">
+{% block styles %} {% endblock %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+crossorigin="anonymous"></script>
+
+<head>
+
+  <!-- Nav -->
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
+    <div class="container">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+      <a class="navbar-brand" href="#">
+        <strong>Navbar</strong>
+      </a>
+
+        <div class="collapse navbar-collapse" id="navbarNav1">
+    <ul class="navbar-nav mr-auto">
+      
+
+      {% if user.is_authenticated and user.is_superuser %}
+    <a class="nav-link"href="{% url 'admin:index' %}" >Accéder à l'administration</a>
+       {% endif %}
+
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'index' %}"> Catalogue <span class="sr-only">(current)</span></a>
+      </li>
+
+      {% if user.is_authenticated and not user.is_staff %}
+      <li class="nav-item  ">
+
+        <a class="nav-link" href="{% url 'shop' %}">Panier</a>
+
+      </li>
+      {% endif %}
+     
+      {% if user.is_authenticated %}
+      <li class="nav-item dropdown btn-group">
+        <a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  href="{% url 'index' %}">Produits</a>
+        <div class="dropdown-menu dropdown" aria-labelledby="dropdownMenu1">
+          {% if user.is_authenticated and user.is_superuser %}
+          <a class="dropdown-item" href="{% url 'nouveau_produit' %}"> Ajouter Produit</a>
+          {% endif %}  
+          <a class="dropdown-item" href="{% url 'index' %}">Liste des Produit</a>
+        </div>
+      </li>
+      {% endif %} 
+
+
+      {% if user.is_authenticated and user.is_superuser %}
+        <li class="nav-item dropdown btn-group">
+          <a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
+          <div class="dropdown-menu dropdown" aria-labelledby="dropdownMenu1">
+            
+            <a class="dropdown-item" href="{% url 'ListCategorie' %}">Categories</a>
+              <a class="dropdown-item" href="{% url 'create_categorie' %}">Ajout Categorie</a>
+          </div>
+        </li>
+        {% endif %}
+
+        {% if user.is_authenticated and user.is_superuser %}
+      <li class="nav-item dropdown btn-group">
+        <a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fournisseur</a>
+        <div class="dropdown-menu dropdown" aria-labelledby="dropdownMenu1">
+          
+          <a class="dropdown-item" href="{% url 'nouveauFournisseur' %}">Ajout Fournisseur</a>
+            <a class="dropdown-item" href="{% url 'fournisseurs' %}">List Fournisseur</a>
+        </div>
+      </li>
+      {% endif %}
+
+
+      {% if user.is_authenticated and user.is_superuser %}
+      <li class="nav-item dropdown btn-group">
+        <a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Commandes</a>
+        <div class="dropdown-menu dropdown" aria-labelledby="dropdownMenu1">
+          
+          <a class="dropdown-item" href="{% url 'ListCommande' %}">List Commandes</a>
+            <a class="dropdown-item" href="{% url 'create_commande' %}">Ajout commande</a>
+        </div>
+      </li>
+      {% endif %}
+      {% if user.is_authenticated and not user.is_staff %}
+      <li class="nav-item  ">
+        <a class="nav-link" href="{% url 'contact' %}">Contact </a>
+      </li>
+      {% endif %}
+      
+    </ul>
+    <ul class="navbar-nav mr-auto">
+      
+      {% if user.is_authenticated %}
+      <li class="nav-item ">
+        <a class="nav-link" href="#">{{user}}</a>
+      </li>
+          
+          
+          <li class="nav-item">
+          <a   class="nav-link" href="{% url 'logout' %}">Déconnexion</a>
+          </li>
+
+
+          {% else %}
+          <li class="nav-item">
+          <a href="{% url 'login' %}">Connexion</a>
+          </li>
+          <li class="nav-link">
+          <a  class="nav-link" href="{% url 'register' %}">Inscription</a>
+          </li>
+          {% endif %}
+        </ul>
+        
+
+        <form method="GET" action="{% url 'search' %}" class="form-inline my-2 my-lg-0">
+          <div class="input-group">
+            <input type="text" name="q" placeholder="Recherche d'un produit..." class="form-control border-0 rounded-0 py-2" aria-label="Search">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-outline-secondary border-0 rounded-0 py-2">Recherche</button>
+            </div>
+          </div>
+        </form>
+        
+        
+          
+        </div>
+      </div>
+       </nav>
+    </div>
+  </div>
+  {% block content %}
+  
+  {% endblock %}
+</head>
+<style>
+  .navbar {
+    background-color: #ffcc00;
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+  }
+  
+  .navbar-toggler {
+    border-color: #fff;
+  }
+  
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 1.0)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+  
+  .navbar-nav .nav-item .nav-link {
+    color: #15526;
+  }
+  
+  .navbar-nav .nav-item .nav-link:hover {
+    color: #15526;
+    border-bottom: 2px solid #fff;
+  }
+  
+  .navbar-nav .nav-item.active .nav-link {
+    color: #15526;
+    border-bottom: 2px solid #fff;
+  }
+  
+  .dropdown-menu {
+    background-color: #414a5c;
+  }
+  
+  .dropdown-menu .dropdown-item {
+    color: #fff;
+  }
+  
+  .dropdown-menu .dropdown-item:hover {
+    color: #fff;
+    background-color: #313a46;
+  }
+  
+  .dropdown-menu .dropdown-divider {
+    background-color: #fff;
+  }
+  
+  .form-inline .form-control {
+    border-color: #fff;
+  }
+  
+  .form-inline .form-control:focus {
+    border-color: #fff;
+    box-shadow: none;
+  }
+  
+  .form-inline .btn-primary {
+    background-color: #fff;
+    border-color: #fff;
+    color: #414a5c;
+  }
+  
+  .form-inline .btn-primary:hover {
+    background-color: #fff;
+    border-color: #fff;
+    color: #414a5c;
+  }
+  
+</style>
+</html>

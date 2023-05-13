@@ -36,6 +36,8 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='my_rest_framework')),
     path('api/', include(router.urls)),
     
+    
+    
     path('',views.index),
     path('', views.index,name='index'),
     path('admin/', admin.site.urls),
@@ -49,4 +51,6 @@ urlpatterns = [
     path('accounts/password_reset_confirm/', auth_views.PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html'), name='password_reset_confirm'),
     path('accounts/password_reset_email/', auth_views.PasswordResetConfirmView.as_view(template_name='registration/password_reset_email.html'), name='password_reset_email'),
     path('accounts/password_reset/', auth_views.PasswordResetConfirmView.as_view(template_name='registration/password_reset.html'), name='password_reset'),
+    
+    
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

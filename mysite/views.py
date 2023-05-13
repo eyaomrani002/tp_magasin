@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.template import loader
-from . import templates
+#from . import templates
 from django.contrib.auth.decorators import login_required
 
 @login_required

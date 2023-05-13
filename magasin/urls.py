@@ -13,6 +13,7 @@ router = routers.SimpleRouter()
 router.register('produit', ProductViewset, basename='produit')
 
 
+
 urlpatterns = [ 
                
                

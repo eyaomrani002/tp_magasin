@@ -317,14 +317,7 @@ def shop(request):
     }
     return render(request, 'magasin/shop.html', context)
 
-def shop(request):
-    produits = Produit.objects.all()
-    categories = Categorie.objects.all()
-    context = {
-        'produits': produits,
-        'categories': categories,
-    }
-    return render(request, 'magasin/shop.html', context)
+
 
 def contact(request):
     if request.method =="POST":
